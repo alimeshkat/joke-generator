@@ -21,11 +21,11 @@ fun Application.configureSerialization() {
             "-4dc1-9191-ce291b4b75a1/IncomingWebhook/0906991649b24c5489163f564dc5e725/" +
             "2da6094e-7349-475e-b1fa-6f99bb965e9e"
     routing {
-        get("/json/jackson") {
+        get("/jokes/gio") {
             val response: Gioke = client.get("https://v2.jokeapi.dev/joke/Any?" +
                     "blacklistFlags=nsfw,religious,political,racist,sexist,explicit")
                 .body()
-            val body = TeamsBody("$response by Gio")
+            val body = TeamsBody("$response")
             client.post(webhook){
                 setBody(Gson().toJson(body))
             }
