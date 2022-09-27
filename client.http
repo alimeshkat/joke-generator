@@ -1,3 +1,5 @@
 GET http://localhost:8080
 ###
 GET http://localhost:8080/joke
+###
+POST http://localhost:8080/posttest
