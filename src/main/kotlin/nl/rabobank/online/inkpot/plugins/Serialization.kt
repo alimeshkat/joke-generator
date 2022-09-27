@@ -11,7 +11,8 @@ import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
-fun Application.configureRouting() {
+
+fun Application.jokeRoute() {
     install(ContentNegotiation) {
         jackson {
             enable(SerializationFeature.INDENT_OUTPUT)
@@ -19,26 +20,28 @@ fun Application.configureRouting() {
     }
 
     routing {
-        post("/jokes/dev") {
-            val response: DevJokes =
-                getDevJokes()
-
-            call.respond(response)
+        get("/jokes/dev") {
+            val response = randomJoke()
+            response?.let {
+                call.respond(it)
+            }
         }
     }
 }
 
-suspend fun getDevJokes(): DevJokes {
-    val response: DevJokes =
-        client.get("https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist,explicit&type=single")
-            .body()
-
-
+suspend fun toMsTeams(it: String) {
     client.post("<REPLACE_ME>") {
-        setBody(ObjectMapper().writeValueAsString(TeamsDTO(response.joke)))
+        setBody(
+            ObjectMapper().writeValueAsString(
+                TeamsDTO(it)
+            )
+        )
     }
-    return response
 }
+
+suspend fun randomJoke() =
+    client.get("https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist,explicit&type=single")
+        .body<DevJokes?>()?.joke
 
 data class DevJokes(
     val error: String,
