@@ -1,0 +1,8 @@
+applications:
+  - name: joke-generator
+    path: target/joke-generator.jar
+    memory: 1G
+    disk_quota: 512M
+    buildpacks:
+      - java_buildpack
+

@@ -19,7 +19,7 @@ fun Application.configureRouting() {
     }
 
     routing {
-        get("/jokes/dev") {
+        post("/jokes/dev") {
             val response: DevJokes =
                 getDevJokes()
 
@@ -28,17 +28,18 @@ fun Application.configureRouting() {
     }
 }
 
-private suspend fun getDevJokes(): DevJokes {
+suspend fun getDevJokes(): DevJokes {
     val response: DevJokes =
         client.get("https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist,explicit&type=single")
             .body()
 
 
-    client.post("https://raboweb.webhook.office.com/webhookb2/176d40fb-a85b-4356-8e19-214b1c895cc9@6e93a626-8aca-4dc1-9191-ce291b4b75a1/IncomingWebhook/5d11bf8bf146483c84ace9974c7f5865/2da6094e-7349-475e-b1fa-6f99bb965e9e") {
+    client.post("<REPLACE_ME>") {
         setBody(ObjectMapper().writeValueAsString(TeamsDTO(response.joke)))
     }
     return response
 }
+
 data class DevJokes(
     val error: String,
     val category: String,
