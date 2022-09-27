@@ -6,6 +6,9 @@ import io.ktor.server.application.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import io.ktor.client.call.*
+import io.ktor.client.request.*
+import nl.rabobank.online.inkpot.entities.Chuck
 
 fun Application.configureSerialization() {
     install(ContentNegotiation) {
@@ -17,6 +20,13 @@ fun Application.configureSerialization() {
     routing {
         get("/json/jackson") {
             call.respond(mapOf("hello" to "world"))
+        }
+
+        get("/joke") {
+
+            val response: Chuck = client.get("https://api.chucknorris.io/jokes/random").body()
+            call.respond(response)
+
         }
     }
 }
