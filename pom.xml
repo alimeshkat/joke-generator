@@ -21,12 +21,19 @@
     <dependencies>
         <dependency>
             <groupId>io.ktor</groupId>
-            <artifactId>ktor-server-core-jvm</artifactId>
+            <artifactId>ktor-client-core-jvm</artifactId>
             <version>${ktor_version}</version>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>io.ktor</groupId>
-            <artifactId>ktor-server-content-negotiation-jvm</artifactId>
+            <artifactId>ktor-client-cio-jvm</artifactId>
+            <version>${ktor_version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-client-content-negotiation-jvm</artifactId>
             <version>${ktor_version}</version>
         </dependency>
         <dependency>
@@ -34,11 +41,7 @@
             <artifactId>ktor-serialization-jackson-jvm</artifactId>
             <version>${ktor_version}</version>
         </dependency>
-        <dependency>
-            <groupId>io.ktor</groupId>
-            <artifactId>ktor-server-cio-jvm</artifactId>
-            <version>${ktor_version}</version>
-        </dependency>
+
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
@@ -130,6 +133,14 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>
