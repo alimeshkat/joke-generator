@@ -11,7 +11,7 @@ import nl.rabobank.online.inkpot.plugins.toMsTeams
 fun main(): Unit = runBlocking {
 
     launch {
-        scheduledDaily {
+        ScheduleUtil().schedule {
             randomJoke()?.let {
                 toMsTeams(it)
             }
