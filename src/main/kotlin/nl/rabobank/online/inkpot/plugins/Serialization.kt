@@ -19,7 +19,7 @@ fun Application.configureSerialization() {
     }
     val webhook = "<REPLACE_ME>"
     routing {
-        get("/jokes/gio") {
+        get("/jokes/dev") {
             val response: Gioke = client.get("https://v2.jokeapi.dev/joke/Any?" +
                     "blacklistFlags=nsfw,religious,political,racist,sexist,explicit")
                 .body()
